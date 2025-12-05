@@ -1,337 +1,1014 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Calculadora – Resistência dos Materiais</title>
     <script defer src="main.js"></script>
-</head>
-<body>
-    <div>
-        <h1>Calculos Relacionados A Tensão</h1>
-        <div>
-            <h2>Calculo da área da seção do cabo</h2>
-            <label for="SC_tensao_limite">Tensão limite</label>
-            <input id="SC_tensao_limite" type="text">
-            <label for="SC_carga">Carga</label>
-            <input id="SC_carga" type="text">
-            <br>
-            <button onclick="calcular_area_secao()">Calcular</button>
-            <br>
-            <p>Area:</p>
-            <p id="SC_area_secao_cabo">   </p>
-        </div>
-        <br>
-        <div>
-            <h2>Calculo do diâmetro do cabo</h2>
-            <label for="DC_area">Area</label>  
-            <input id="DC_area" type="text">
-            <br>
-            <button onclick="calcular_diametro_cabo()">Calcular</button>
-            <br>
-            <p>Diâmetro:</p>
-            <p id="DC_diametro_cabo">   </p>
-            
-        </div>
-        <br>
-        <div>
-            <h2>Calculo de tensão admitida</h2>
-            <label for="TA_tensao_limite">Tensão limite</label>
-            <input id="TA_tensao_limite" type="text">
-            <label for="TA_seguranca">Coeficiente de segurança</label>
-            <input id="TA_seguranca" type="text">
-            <br>
-            <button onclick="calcular_tensao_admitida()">Calcular</button>
-            <br>
-            <p>Tensão admitida:</p>
-            <p id="TA_tensao_admitida">   </p>
-        </div>
-        <br>
-        <div>
-            <h2>Dimensionamento completo da peça</h2>
-            <label for="DCP_coeficiente_major">Coeficiente para majorar força</label>
-            <input id="DCP_coeficiente_major" type="text">
-            <label for="DCP_carga">Carga</label>
-            <input id="DCP_carga" type="text">
-            <br>
-            <br>
-            <label for="DCP_tensao_limite">Tensão limite</label>
-            <input id="DCP_tensao_limite" type="text">
-            <label for="DCP_coeficiente_minor">Coeficiente para minorar a resistência</label>
-            <input id="DCP_coeficiente_minor" type="text">
-            <br>
-            <button onclick="calcular_dimensionamento_completo()">Calcular</button>
-            <br>
-            <p>Area resistente:</p>
-            <p id="DCP_area_resistente">   </p>
-        </div>
-    </div>
-    <br><br><br>
-    <div>
-        <h1>Calculos Relacionados a Deformação em Barras Causadas por Força Axial</h1>
-        <div>
-            <h2>Deformação de barra</h2>
-            <label for="DB_carga">Carga (kN)</label>
-            <input id="DB_carga" type="text">
-            <label for="DB_comprimento">Comprimento (cm)</label>
-            <input id="DB_comprimento" type="text">
-            <br>
-            <br>
-            <label for="DB_modulo">Modulo de deformação (Gpa)</label>
-            <input id="DB_modulo" type="text">
-            <label for="DB_area">Area da seção transversal (cm²)</label>
-            <input id="DB_area" type="text">
-            <br>
-            <button onclick="calcular_deformacao_barra()">Calcular</button>
-            <br>
-            <p>Deformação (cm):</p>
-            <p id="DB_deformacao">   </p>
-        </div>
-        <br>
-        <div>
-            <h2>Calculo da Area de uma Barra Cicular Vazada</h2>
-            <label for="CABC_diametro">Diametro (cm)</label>  
-            <input id="CABC_diametro" type="text">
-            <label for="CABC_espessura">Espessura (cm)</label>  
-            <input id="CABC_espessura" type="text">
-            <br>
-            <button onclick="calcular_area_barra_circular_vazada()">Calcular</button>
-            <br>
-            <p>Area:</p>
-            <p id="CABC_area">   </p>
-            
-        </div>
-    </div>
-    <br><br><br>
-    <div>
-        <h1>Calculos Relacionados a Características Geométricas de Perfis</h1>
-        <div>
-            <h2>Determinar as Caracteristicas Geometricas de um Poligono Ortogonal por Decomposição Retangular</h2>
-            <h3>Adicionar Retangulo</h3>
-            <div>
-                <label for="CGPO_tamanho_x">Tamanho horizontal (cm)</label>  
-                <input id="CGPO_tamanho_x" type="text">
-                <label for="CGPO_tamanho_y">Tamanho vertical (cm)</label>  
-                <input id="CGPO_tamanho_y" type="text">
-                <br><br>
-                <p>As coordenadas devem ser do vertice do canto inferior esquerdo (mais perto do ponto de origem):</p>
-                <p>Atenção! apenas cordenadas positivas</p>
-                <p>O retangulos não devem se sobrepor de nenhuma maneira</p>
-                <br>
-                <label for="CGPO_coordenada_x">Coordenada horizontal</label>  
-                <input id="CGPO_coordenada_x" type="text">
-                <label for="CGPO_coordenada_y">Coordenada vertical</label>  
-                <input id="CGPO_coordenada_y" type="text">
-                <br><br>
-                <button onclick="add_retangulo_PO_CG()">Adicionar Retangulo</button>
-                <button onclick="apagar_retangulos_PO_CG()">Reiniciar Retangulos</button>
-            </div>
-            <h3>Retangulos: </h3>
-            <div id="CGPO_retangulos_adicionados">
-                <br>
 
+    <style>
+        :root {
+            --bg: #0f172a;
+            --bg-elevated: #020617;
+            --bg-card: #111827;
+            --accent: #38bdf8;
+            --accent-soft: rgba(56, 189, 248, 0.15);
+            --text: #e5e7eb;
+            --text-muted: #9ca3af;
+            --border: #1f2937;
+            --danger: #f97373;
+            --radius-lg: 14px;
+            --radius-md: 10px;
+            --shadow-strong: 0 18px 35px rgba(15, 23, 42, 0.75);
+        }
+
+        /* Tema claro */
+        body[data-theme="light"] {
+            --bg: #f3f4f6;
+            --bg-elevated: #ffffff;
+            --bg-card: #ffffff;
+            --accent: #0ea5e9;
+            --accent-soft: rgba(14, 165, 233, 0.12);
+            --text: #111827;
+            --text-muted: #6b7280;
+            --border: #d1d5db;
+            --danger: #dc2626;
+            --shadow-strong: 0 16px 28px rgba(15, 23, 42, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top, var(--bg), var(--bg-elevated) 60%);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* Layout principal (sem sidebar, com tabs) */
+        .page {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 20px 16px 32px;
+        }
+
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .main-title {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .main-subtitle {
+            margin: 2px 0 0;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .pill {
+            padding: 4px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        /* Toggle de tema */
+        .theme-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.7);
+            background: rgba(15, 23, 42, 0.4);
+            color: var(--text);
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: background 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
+        }
+
+        body[data-theme="light"] .theme-toggle {
+            background: rgba(243, 244, 246, 0.8);
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-1px);
+            border-color: var(--accent);
+        }
+
+        .theme-toggle-icon {
+            font-size: 1rem;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 18px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .tab-btn {
+            flex: 0 0 auto;
+            padding: 7px 14px;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+        }
+
+        .tab-index {
+            font-size: 0.75rem;
+            opacity: 0.7;
+        }
+
+        .tab-btn.active {
+            background: var(--accent-soft);
+            color: var(--accent);
+            border-color: rgba(56, 189, 248, 0.6);
+            transform: translateY(-1px);
+        }
+
+        .tab-panel {
+            display: none;
+            animation: fadeIn 0.18s ease-out;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        section {
+            margin-bottom: 28px;
+        }
+
+        section > h2 {
+            font-size: 1.15rem;
+            margin-bottom: 8px;
+        }
+
+        .section-description {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+        }
+
+        /* Cards de cálculo */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 16px;
+        }
+
+        .card {
+            background: linear-gradient(145deg, var(--bg-card), var(--bg-elevated));
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            padding: 16px 18px 14px;
+            box-shadow: var(--shadow-strong);
+        }
+
+        .card h3 {
+            margin: 0 0 4px;
+            font-size: 1rem;
+        }
+
+        .card-subtitle {
+            margin: 0 0 12px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 10px 14px;
+            margin-bottom: 12px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            padding: 7px 9px;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            background: rgba(15, 23, 42, 0.9);
+            color: var(--text);
+            font-size: 0.85rem;
+            outline: none;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+        }
+
+        body[data-theme="light"] input[type="text"],
+        body[data-theme="light"] input[type="number"] {
+            background: #f9fafb;
+        }
+
+        input::placeholder {
+            color: rgba(148, 163, 184, 0.7);
+        }
+
+        input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.7);
+            background: var(--bg-elevated);
+        }
+
+        .hint {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin: 4px 0 10px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 7px 14px;
+            border-radius: 999px;
+            border: none;
+            background: radial-gradient(circle at top left, var(--accent), #0369a1);
+            color: #0b1120;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 4px;
+            margin-bottom: 8px;
+            box-shadow: 0 12px 30px rgba(56, 189, 248, 0.35);
+            transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.05);
+            box-shadow: 0 16px 36px rgba(56, 189, 248, 0.45);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: 0 8px 16px rgba(56, 189, 248, 0.35);
+        }
+
+        .btn-secondary {
+            background: none;
+            color: var(--danger);
+            border: 1px solid rgba(248, 113, 113, 0.7);
+            box-shadow: none;
+        }
+
+        .btn-secondary:hover {
+            filter: none;
+            box-shadow: 0 8px 18px rgba(248, 113, 113, 0.3);
+        }
+
+        .result-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .result-value {
+            font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size: 0.9rem;
+            padding: 5px 9px;
+            border-radius: 999px;
+            background: var(--accent-soft);
+            border: 1px solid rgba(56, 189, 248, 0.6);
+            display: inline-block;
+            min-width: 90px;
+        }
+
+        .result-block {
+            margin-top: 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .result-multi {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .warning {
+            font-size: 0.78rem;
+            color: var(--danger);
+            margin-top: 4px;
+        }
+
+        .rectangle-list {
+            border-radius: var(--radius-md);
+            border: 1px dashed rgba(148, 163, 184, 0.6);
+            padding: 8px 10px;
+            font-size: 0.8rem;
+            max-height: 160px;
+            overflow-y: auto;
+            background: rgba(15, 23, 42, 0.6);
+        }
+
+        body[data-theme="light"] .rectangle-list {
+            background: rgba(243, 244, 246, 0.7);
+        }
+
+        .rectangle-list p {
+            margin: 2px 0;
+        }
+
+        .card-actions-inline {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 6px 0 8px;
+        }
+
+        @media (max-width: 640px) {
+            .main-header {
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+<div class="page">
+    <header class="main-header">
+        <div>
+            <h1 class="main-title">Resistência dos Materiais – Painel de Cálculos</h1>
+            <p class="main-subtitle">Escolha uma aba, preencha os dados e clique em <strong>Calcular</strong>.</p>
+        </div>
+        <div style="display:flex; gap:8px; align-items:center;">
+            <div class="pill">Use ponto (.) como separador decimal</div>
+            <button id="theme-toggle" class="theme-toggle" type="button">
+                <span class="theme-toggle-icon" id="theme-icon">🌙</span>
+                <span id="theme-label">Tema escuro</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Tabs -->
+    <nav class="tabs">
+        <button class="tab-btn active" data-tab-target="#tab-tensao">
+            <span class="tab-index">01</span> Tensão & Área de Cabo
+        </button>
+        <button class="tab-btn" data-tab-target="#tab-deformacao-barras">
+            <span class="tab-index">02</span> Deformação em Barras
+        </button>
+        <button class="tab-btn" data-tab-target="#tab-caracteristicas-geometricas">
+            <span class="tab-index">03</span> Características Geométricas
+        </button>
+        <button class="tab-btn" data-tab-target="#tab-deformacao-flexao">
+            <span class="tab-index">04</span> Deformação por Flexão
+        </button>
+        <button class="tab-btn" data-tab-target="#tab-torsao">
+            <span class="tab-index">05</span> Torção
+        </button>
+    </nav>
+
+    <!-- TAB 1: Tensão -->
+    <div id="tab-tensao" class="tab-panel active">
+        <section id="tensao">
+            <h2>Cálculos Relacionados à Tensão</h2>
+            <p class="section-description">
+                Dimensões de cabos e tensões admissíveis com base em carga, área e coeficientes de segurança.
+            </p>
+
+            <div class="card-grid">
+                <!-- Área da seção do cabo -->
+                <div class="card">
+                    <h3>Área da seção do cabo</h3>
+                    <p class="card-subtitle">Calcula a área necessária para resistir à carga aplicada.</p>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="SC_tensao_limite">Tensão limite</label>
+                            <input id="SC_tensao_limite" type="text" placeholder="Ex: 150">
+                        </div>
+                        <div class="form-group">
+                            <label for="SC_carga">Carga</label>
+                            <input id="SC_carga" type="text" placeholder="Ex: 20">
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calcular_area_secao()">Calcular</button>
+
+                    <div class="result-block">
+                        <span class="result-label">Área necessária:</span>
+                        <span id="SC_area_secao_cabo" class="result-value"></span>
+                    </div>
+                </div>
+
+                <!-- Diâmetro do cabo -->
+                <div class="card">
+                    <h3>Diâmetro do cabo</h3>
+                    <p class="card-subtitle">Determina o diâmetro equivalente a partir da área da seção.</p>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="DC_area">Área</label>
+                            <input id="DC_area" type="text" placeholder="cm²">
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calcular_diametro_cabo()">Calcular</button>
+
+                    <div class="result-block">
+                        <span class="result-label">Diâmetro:</span>
+                        <span id="DC_diametro_cabo" class="result-value"></span>
+                    </div>
+                </div>
+
+                <!-- Tensão admitida -->
+                <div class="card">
+                    <h3>Tensão admitida</h3>
+                    <p class="card-subtitle">Calcula a tensão admissível usando um coeficiente de segurança.</p>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="TA_tensao_limite">Tensão limite</label>
+                            <input id="TA_tensao_limite" type="text" placeholder="Ex: 250">
+                        </div>
+                        <div class="form-group">
+                            <label for="TA_seguranca">Coeficiente de segurança</label>
+                            <input id="TA_seguranca" type="text" placeholder="Ex: 1.5">
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calcular_tensao_admitida()">Calcular</button>
+
+                    <div class="result-block">
+                        <span class="result-label">Tensão admitida:</span>
+                        <span id="TA_tensao_admitida" class="result-value"></span>
+                    </div>
+                </div>
+
+                <!-- Dimensionamento completo da peça -->
+                <div class="card">
+                    <h3>Dimensionamento completo da peça</h3>
+                    <p class="card-subtitle">Considera majoração de força e minoração de resistência.</p>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="DCP_coeficiente_major">Coef. para majorar força</label>
+                            <input id="DCP_coeficiente_major" type="text" placeholder="Ex: 1.4">
+                        </div>
+                        <div class="form-group">
+                            <label for="DCP_carga">Carga</label>
+                            <input id="DCP_carga" type="text" placeholder="Ex: 25">
+                        </div>
+                        <div class="form-group">
+                            <label for="DCP_tensao_limite">Tensão limite</label>
+                            <input id="DCP_tensao_limite" type="text" placeholder="Ex: 240">
+                        </div>
+                        <div class="form-group">
+                            <label for="DCP_coeficiente_minor">Coef. para minorar resistência</label>
+                            <input id="DCP_coeficiente_minor" type="text" placeholder="Ex: 1.1">
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calcular_dimensionamento_completo()">Calcular</button>
+
+                    <div class="result-block">
+                        <span class="result-label">Área resistente:</span>
+                        <span id="DCP_area_resistente" class="result-value"></span>
+                    </div>
+                </div>
             </div>
-            <br>
-            <button onclick="calcular_all_CG_PO()">Calcular Caracteristicas Geometricas</button>
-            <br>
-            <p id="CGPO_erro">   </p>
-            <br><br>
-            <h3>Caracteristicas Geometricas do Poligono</h3>
-            <p>Area:</p>
-            <p id="CGPO_area">   </p>
-            <br></br>
-            <p>Centro de gravidade:</p>
-            <p id="CGPO_centro_de_gravidade">   </p>
-            <br></br>
-            <p>Momento de inercia:</p>
-            <p id="CGPO_momento_de_inercia">   </p>
-            <br></br>
-            <p>Raio de giração:</p>
-            <p id="CGPO_raio_de_giracao">   </p>
-            <br></br>
-            <p>Momento resistente elástico:</p>
-            <p id="CGPO_momento_resistenteX">   </p>
-            <p id="CGPO_momento_resistenteY">   </p>
-        </div>
-        <br>
-        <div>
-            <h2>Determinar as Caracteristicas Geometricas de um circulo</h2>
-            <br>
-            <label for="CGC_diametro">Diametro (cm)</label>  
-            <input id="CGC_diametro" type="text">
-            <br><br>
-            <button onclick="calcular_CG_C()">Calcular Caracteristicas Geometricas</button>
-            <br><br>
-            <h3>Resultados</h3>
-            <p>Area:</p>
-            <p id="CGC_area">   </p>
-            <br></br>
-            <p>Centro de gravidade:</p>
-            <p id="CGC_centro_de_gravidade">   </p>
-            <br></br>
-            <p>Momento de inercia:</p>
-            <p id="CGC_momento_de_inercia">   </p>
-            <br><br>
-            <p>Momento polar de inercia:</p>
-            <p id="CGC_momento_polar_de_inercia">   </p>
-            <br></br>
-            <p>Raio de giração:</p>
-            <p id="CGC_raio_de_giracao">   </p>
-            <br></br>
-            <p>Momento resistente elástico:</p>
-            <p id="CGC_momento_resistente">   </p>
-            <br>
-        </div>
-        <br>
-        <div>
-            <h2>Determinar as Caracteristicas Geometricas de um Retangulo vazado</h2>
-            <br>
-            <label for="CGRV_tamanho_x">Tamanho horizontal (cm)</label>  
-            <input id="CGRV_tamanho_x" type="text">
-            <br><br>
-            <label for="CGRV_tamanho_y">Tamanho vertical (cm)</label>  
-            <input id="CGRV_tamanho_y" type="text">
-            <br><br>
-            <label for="CGRV_espessura">Espessura (cm)</label>  
-            <input id="CGRV_espessura" type="text">
-            <br><br>
-            <button onclick="calcular_CG_RV()">Calcular Caracteristicas Geometricas</button>
-            <br><br>
-            <h3>Resultados</h3>
-            <p>Area:</p>
-            <p id="CGRV_area">   </p>
-            <br></br>
-            <p>Centro de gravidade:</p>
-            <p id="CGRV_centro_de_gravidade">   </p>
-            <br></br>
-            <p>Momento de inercia:</p>
-            <p id="CGRV_momento_de_inercia">   </p>
-            <br></br>
-            <p>Raio de giração:</p>
-            <p id="CGRV_raio_de_giracao">   </p>
-            <br></br>
-            <p>Momento resistente elástico:</p>
-            <p id="CGRV_momento_resistenteX">   </p>
-            <p id="CGRV_momento_resistenteY">   </p>
-            <br>
-        </div>
-        <br>
-        <div>
-            <h2>Determinar as Caracteristicas Geometricas de um circulo vazado</h2>
-            <br>
-            <label for="CGCV_diametro">Diametro (cm)</label>  
-            <input id="CGCV_diametro" type="text">
-            <br><br>
-            <label for="CGCV_espessura">Espessura (cm)</label>  
-            <input id="CGCV_espessura" type="text">
-            <br><br>
-            <button onclick="calcular_CG_CV()">Calcular Caracteristicas Geometricas</button>
-            <br><br>
-            <h3>Resultados</h3>
-            <p>Area:</p>
-            <p id="CGCV_area">   </p>
-            <br></br>
-            <p>Centro de gravidade:</p>
-            <p id="CGCV_centro_de_gravidade">   </p>
-            <br></br>
-            <p>Momento de inercia:</p>
-            <p id="CGCV_momento_de_inercia">   </p>
-            <br><br>
-            <p>Momento polar de inercia:</p>
-            <p id="CGCV_momento_polar_de_inercia">   </p>
-            <br></br>
-            <p>Raio de giração:</p>
-            <p id="CGCV_raio_de_giracao">   </p>
-            <br></br>
-            <p>Momento resistente elástico:</p>
-            <p id="CGCV_momento_resistente">   </p>
-            <br>
-        </div>
+        </section>
     </div>
-    <br><br><br>
-    <div>
-        <h1>Calculos Relacionados a Deformação por Flexão</h1>
-        <div>
-            <h2>Cálculo da deformação máxima de viga</h2>
-            <label for="DM_carga">Carga (kN/m)</label>
-            <input id="DM_carga" type="text">
-            <label for="DM_vao">Vão da viga (m)</label>
-            <input id="DM_vao" type="text">
-            <br>
-            <br>
-            <label for="DM_modulo_deformacao">Modulo de deformação (GPA)</label>
-            <input id="DM_modulo_deformacao" type="text">
-            <label for="DM_momento_inercia">Momento de inercia (cm^4)</label>
-            <input id="DM_momento_inercia" type="text">
-            <br>
-            <button onclick="calcular_deformacao_maxima_DFDM()">Calcular</button>
-            <br>
-            <p>Deformação maxima</p>
-            <p id="DM_deformacao_max">   </p>
-        </div>
+
+    <!-- TAB 2: Deformação em Barras -->
+    <div id="tab-deformacao-barras" class="tab-panel">
+        <section id="deformacao-barras">
+            <h2>Deformação em Barras por Força Axial</h2>
+            <p class="section-description">
+                Cálculos de alongamento/encurtamento de barras e área de barras circulares vazadas.
+            </p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Deformação de barra</h3>
+                    <p class="card-subtitle">Determina a deformação axial em função da carga, comprimento, módulo e área.</p>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="DB_carga">Carga (kN)</label>
+                            <input id="DB_carga" type="text" placeholder="Ex: 50">
+                        </div>
+                        <div class="form-group">
+                            <label for="DB_comprimento">Comprimento (cm)</label>
+                            <input id="DB_comprimento" type="text" placeholder="Ex: 120">
+                        </div>
+                        <div class="form-group">
+                            <label for="DB_modulo">Módulo de deformação (GPa)</label>
+                            <input id="DB_modulo" type="text" placeholder="Ex: 210">
+                        </div>
+                        <div class="form-group">
+                            <label for="DB_area">Área da seção (cm²)</label>
+                            <input id="DB_area" type="text" placeholder="Ex: 3.5">
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calcular_deformacao_barra()">Calcular</button>
+
+                    <div class="result-block">
+                        <span class="result-label">Deformação (cm):</span>
+                        <span id="DB_deformacao" class="result-value"></span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Área de barra circular vazada</h3>
+                    <p class="card-subtitle">Calcula a área útil de uma barra tubular circular.</p>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="CABC_diametro">Diâmetro externo (cm)</label>
+                            <input id="CABC_diametro" type="text" placeholder="Ex: 10">
+                        </div>
+                        <div class="form-group">
+                            <label for="CABC_espessura">Espessura (cm)</label>
+                            <input id="CABC_espessura" type="text" placeholder="Ex: 0.5">
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calcular_area_barra_circular_vazada()">Calcular</button>
+
+                    <div class="result-block">
+                        <span class="result-label">Área:</span>
+                        <span id="CABC_area" class="result-value"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
-    <br><br><br>
-    <div>
-        <h1>Calculos Relacionados a Torção</h1>
-        <div>
-            <h2>Calculo de momento torçor</h2>
-            <label for="TMT_forca">Força (kN)</label>
-            <input id="TMT_forca" type="text">
-            <label for="TMT_raio">Raio da seção (cm)</label>
-            <input id="TMT_raio" type="text">
-            <br>
-            <button onclick="calcular_momento_torcorT()">Calcular</button>
-            <br>
-            <p>Momento Torçor</p>
-            <p id="TMT_momento_torcor">   </p>
-        </div>
-        <br><br>
-        <div>
-            <h2>Calculo de Tensão Máxima de Cisalhamento</h2>
-            <label for="TTMC_momento_torcor">Momento torçor (kNcm)</label>
-            <input id="TTMC_momento_torcor" type="text">
-            <label for="TTMC_raio">Raio da seção (cm)</label>
-            <input id="TTMC_raio" type="text">
-            <br>
-            <label for="TTMC_momento_polar_inercia">Momento polar de inércia (cm^4)</label>
-            <input id="TTMC_momento_polar_inercia" type="text">
-            <br>
-            <button onclick="calcular_tensao_maxima_cisalhamentoT()">Calcular</button>
-            <br>
-            <p>Tensão máxima de cisalhamento</p>
-            <p id="TTMC_tensao_maxima_cisalhamento">   </p>
-        </div>
-        <br><br>
-        <div>
-            <h2>Cálculo de Deslocamento angular</h2>
-            <label for="TDA_momento_torcor">Momento torçor (kNcm)</label>
-            <input id="TDA_momento_torcor" type="text">
-            <label for="TDA_comprimento">Comprimento da peça (cm)</label>
-            <input id="TDA_comprimento" type="text">
-            <br>
-            <label for="TDA_modulo_elasticidade">Módulo de elasticidade (GPA)</label>
-            <input id="TDA_modulo_elasticidade" type="text">
-            <label for="TDA_momento_polar_inercia">Momento polar de inércia (cm^4)</label>
-            <input id="TDA_momento_polar_inercia" type="text">
-            <br>
-            <button onclick="calcular_deslocamento_angularT()">Calcular</button>
-            <br>
-            <p>Deslocamento angular</p>
-            <p id="TDA_deslocamento_angular">   </p>
-        </div>
-        <br><br>
-        <div>
-            <h2>Calculo de Diâmetro Mínimo da Seção</h2>
-            <label for="TDMS_momento_torcor">Momento torçor (kNcm)</label>
-            <input id="TDMS_momento_torcor" type="text">
-            <label for="TDMS_tensao_maxima_cisalhamento">Tensão maxima de cisalhamento (kN/cm²)</label>
-            <input id="TDMS_tensao_maxima_cisalhamento" type="text">
-            <br>
-            <button onclick="calcular_diametro_minimo_secaoT()">Calcular</button>
-            <br>
-            <p>Diâmetro Mínimo da Seção</p>
-            <p id="TDMS_diametro_minimo_secao">   </p>
-        </div>
+
+    <!-- TAB 3: Características Geométricas -->
+    <div id="tab-caracteristicas-geometricas" class="tab-panel">
+        <section id="caracteristicas-geometricas">
+            <h2>Características Geométricas de Perfis</h2>
+            <p class="section-description">
+                Área, centro de gravidade, momento de inércia, raio de giração e momento resistente de diferentes seções.
+            </p>
+
+            <div class="card-grid">
+                <!-- Polígono ortogonal -->
+                <div class="card" style="grid-column: 1/-1;">
+                    <h3>Polígono Ortogonal por Decomposição Retangular</h3>
+                    <p class="card-subtitle">Monte seu perfil adicionando retângulos que não se sobrepõem, todos com coordenadas positivas.</p>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="CGPO_tamanho_x">Tamanho horizontal (cm)</label>
+                            <input id="CGPO_tamanho_x" type="text" placeholder="Ex: 10">
+                        </div>
+                        <div class="form-group">
+                            <label for="CGPO_tamanho_y">Tamanho vertical (cm)</label>
+                            <input id="CGPO_tamanho_y" type="text" placeholder="Ex: 20">
+                        </div>
+                        <div class="form-group">
+                            <label for="CGPO_coordenada_x">Coord. horizontal (x)</label>
+                            <input id="CGPO_coordenada_x" type="text" placeholder=">= 0">
+                        </div>
+                        <div class="form-group">
+                            <label for="CGPO_coordenada_y">Coord. vertical (y)</label>
+                            <input id="CGPO_coordenada_y" type="text" placeholder=">= 0">
+                        </div>
+                    </div>
+
+                    <p class="hint">
+                        Use o vértice do canto inferior esquerdo como referência. Não utilize retângulos sobrepostos.
+                    </p>
+
+                    <div class="card-actions-inline">
+                        <button class="btn" onclick="add_retangulo_PO_CG()">Adicionar retângulo</button>
+                        <button class="btn btn-secondary" onclick="apagar_retangulos_PO_CG()">Reiniciar retângulos</button>
+                    </div>
+
+                    <h4 class="result-label" style="margin-top: 10px;">Retângulos adicionados:</h4>
+                    <div id="CGPO_retangulos_adicionados" class="rectangle-list"></div>
+
+                    <button class="btn" onclick="calcular_all_CG_PO()" style="margin-top: 12px;">
+                        Calcular características geométricas
+                    </button>
+                    <p id="CGPO_erro" class="warning"></p>
+
+                    <div style="margin-top: 10px;">
+                        <div class="result-block">
+                            <span class="result-label">Área total:</span>
+                            <span id="CGPO_area" class="result-value"></span>
+                        </div>
+                        <div class="result-block">
+                            <span class="result-label">Centro de gravidade:</span>
+                            <span id="CGPO_centro_de_gravidade" class="result-value"></span>
+                        </div>
+                        <div class="result-block">
+                            <span class="result-label">Momento de inércia:</span>
+                            <span id="CGPO_momento_de_inercia" class="result-value"></span>
+                        </div>
+                        <div class="result-block">
+                            <span class="result-label">Raio de giração:</span>
+                            <span id="CGPO_raio_de_giracao" class="result-value"></span>
+                        </div>
+                        <div class="result-block">
+                            <span class="result-label">Momento resistente elástico:</span>
+                            <div class="result-multi">
+                                <span id="CGPO_momento_resistenteX" class="result-value"></span>
+                                <span id="CGPO_momento_resistenteY" class="result-value"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Círculo maciço -->
+                <div class="card">
+                    <h3>Círculo maciço</h3>
+                    <p class="card-subtitle">Características geométricas de uma seção circular.</p>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="CGC_diametro">Diâmetro (cm)</label>
+                            <input id="CGC_diametro" type="text" placeholder="Ex: 12">
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calcular_CG_C()">Calcular</button>
+
+                    <h4 class="result-label" style="margin-top: 8px;">Resultados</h4>
+                    <div class="result-block">
+                        <span class="result-label">Área:</span>
+                        <span id="CGC_area" class="result-value"></span>
+                    </div>
+                    <div class="result-block">
+                        <span class="result-label">Centro de gravidade:</span>
+                        <span id="CGC_centro_de_gravidade" class="result-value"></span>
+                    </div>
+                    <div class="result-block">
+                        <span class="result-label">Momento de inércia:</span>
+                        <span id="CGC_momento_de_inercia" class="result-value"></span>
+                    </div>
+                    <div class="result-block">
+                        <span class="result-label">Momento polar de inércia:</span>
+                        <span id="CGC_momento_polar_de_inercia" class="result-value"></span>
+                    </div>
+                    <div class="result-block">
+                        <span class="result-label">Raio de giração:</span>
+                        <span id="CGC_raio_de_giracao" class="result-value"></span>
+                    </div>
+                    <div class="result-block">
+                        <span class="result-label">Momento resistente elástico:</span>
+                        <span id="CGC_momento_resistente" class="result-value"></span>
+                    </div>
+                </div>
+
+                <!-- Retângulo vazado -->
+                <div class="card">
+                    <h3>Retângulo vazado</h3>
+                    <p class="card-subtitle">Seção retangular em forma de anel.</p>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="CGRV_tamanho_x">Tamanho horizontal (cm)</label>
+                            <input id="CGRV_tamanho_x" type="text" placeholder="Ex: 20">
+                        </div>
+                        <div class="form-group">
+                            <label for="CGRV_tamanho_y">Tamanho vertical (cm)</label>
+                            <input id="CGRV_tamanho_y" type="text" placeholder="Ex: 10">
+                        </div>
+                        <div class="form-group">
+                            <label for="CGRV_espessura">Espessura (cm)</label>
+                            <input id="CGRV_espessura" type="text" placeholder="Ex: 0.8">
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calcular_CG_RV()">Calcular</button>
+
+                    <h4 class="result-label" style="margin-top: 8px;">Resultados</h4>
+                    <div class="result-block">
+                        <span class="result-label">Área:</span>
+                        <span id="CGRV_area" class="result-value"></span>
+                    </div>
+                    <div class="result-block">
+                        <span class="result-label">Centro de gravidade:</span>
+                        <span id="CGRV_centro_de_gravidade" class="result-value"></span>
+                    </div>
+                    <div class="result-block">
+                        <span class="result-label">Momento de inércia:</span>
+                        <span id="CGRV_momento_de_inercia" class="result-value"></span>
+                    </div>
+                    <div class="result-block">
+                        <span class="result-label">Raio de giração:</span>
+                        <span id="CGRV_raio_de_giracao" class="result-value"></span>
+                    </div>
+                    <div class="result-block">
+                        <span class="result-label">Momento resistente elástico:</span>
+                        <div class="result-multi">
+                            <span id="CGRV_momento_resistenteX" class="result-value"></span>
+                            <span id="CGRV_momento_resistenteY" class="result-value"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Círculo vazado -->
+                <div class="card">
+                    <h3>Círculo vazado</h3>
+                    <p class="card-subtitle">Caracterização geométrica de um tubo circular.</p>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="CGCV_diametro">Diâmetro externo (cm)</label>
+                            <input id="CGCV_diametro" type="text" placeholder="Ex: 16">
+                        </div>
+                        <div class="form-group">
+                            <label for="CGCV_espessura">Espessura (cm)</label>
+                            <input id="CGCV_espessura" type="text" placeholder="Ex: 1.2">
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calcular_CG_CV()">Calcular</button>
+
+                    <h4 class="result-label" style="margin-top: 8px;">Resultados</h4>
+                    <div class="result-block">
+                        <span class="result-label">Área:</span>
+                        <span id="CGCV_area" class="result-value"></span>
+                    </div>
+                    <div class="result-block">
+                        <span class="result-label">Centro de gravidade:</span>
+                        <span id="CGCV_centro_de_gravidade" class="result-value"></span>
+                    </div>
+                    <div class="result-block">
+                        <span class="result-label">Momento de inércia:</span>
+                        <span id="CGCV_momento_de_inercia" class="result-value"></span>
+                    </div>
+                    <div class="result-block">
+                        <span class="result-label">Momento polar de inércia:</span>
+                        <span id="CGCV_momento_polar_de_inercia" class="result-value"></span>
+                    </div>
+                    <div class="result-block">
+                        <span class="result-label">Raio de giração:</span>
+                        <span id="CGCV_raio_de_giracao" class="result-value"></span>
+                    </div>
+                    <div class="result-block">
+                        <span class="result-label">Momento resistente elástico:</span>
+                        <span id="CGCV_momento_resistente" class="result-value"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
+
+    <!-- TAB 4: Deformação por Flexão -->
+    <div id="tab-deformacao-flexao" class="tab-panel">
+        <section id="deformacao-flexao">
+            <h2>Deformação por Flexão</h2>
+            <p class="section-description">
+                Cálculo da deformação máxima em vigas sob carregamento distribuído.
+            </p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Deformação máxima de viga</h3>
+                    <p class="card-subtitle">
+                        Utilize o vão, a carga distribuída, o módulo de deformação e o momento de inércia.
+                    </p>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="DM_carga">Carga (kN/m)</label>
+                            <input id="DM_carga" type="text" placeholder="Ex: 20">
+                        </div>
+                        <div class="form-group">
+                            <label for="DM_vao">Vão da viga (m)</label>
+                            <input id="DM_vao" type="text" placeholder="Ex: 5">
+                        </div>
+                        <div class="form-group">
+                            <label for="DM_modulo_deformacao">Módulo de deformação (GPa)</label>
+                            <input id="DM_modulo_deformacao" type="text" placeholder="Ex: 210">
+                        </div>
+                        <div class="form-group">
+                            <label for="DM_momento_inercia">Momento de inércia (cm⁴)</label>
+                            <input id="DM_momento_inercia" type="text" placeholder="Ex: 800">
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calcular_deformacao_maxima_DFDM()">Calcular</button>
+
+                    <div class="result-block">
+                        <span class="result-label">Deformação máxima:</span>
+                        <span id="DM_deformacao_max" class="result-value"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- TAB 5: Torção -->
+    <div id="tab-torsao" class="tab-panel">
+        <section id="torsao">
+            <h2>Torção</h2>
+            <p class="section-description">
+                Momento torçor, tensões de cisalhamento, deslocamento angular e diâmetro mínimo de seções circulares.
+            </p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Momento torçor</h3>
+                    <p class="card-subtitle">Calcula o momento torçor a partir da força e do raio.</p>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="TMT_forca">Força (kN)</label>
+                            <input id="TMT_forca" type="text" placeholder="Ex: 10">
+                        </div>
+                        <div class="form-group">
+                            <label for="TMT_raio">Raio da seção (cm)</label>
+                            <input id="TMT_raio" type="text" placeholder="Ex: 4">
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calcular_momento_torcorT()">Calcular</button>
+
+                    <div class="result-block">
+                        <span class="result-label">Momento torçor:</span>
+                        <span id="TMT_momento_torcor" class="result-value"></span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Tensão máxima de cisalhamento</h3>
+                    <p class="card-subtitle">A partir do momento torçor, raio e momento polar de inércia.</p>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="TTMC_momento_torcor">Momento torçor (kN·cm)</label>
+                            <input id="TTMC_momento_torcor" type="text" placeholder="Ex: 200">
+                        </div>
+                        <div class="form-group">
+                            <label for="TTMC_raio">Raio da seção (cm)</label>
+                            <input id="TTMC_raio" type="text" placeholder="Ex: 3">
+                        </div>
+                        <div class="form-group">
+                            <label for="TTMC_momento_polar_inercia">Momento polar de inércia (cm⁴)</label>
+                            <input id="TTMC_momento_polar_inercia" type="text" placeholder="Ex: 150">
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calcular_tensao_maxima_cisalhamentoT()">Calcular</button>
+
+                    <div class="result-block">
+                        <span class="result-label">Tensão máxima de cisalhamento:</span>
+                        <span id="TTMC_tensao_maxima_cisalhamento" class="result-value"></span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Deslocamento angular</h3>
+                    <p class="card-subtitle">Rotação da seção devido ao momento torçor.</p>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="TDA_momento_torcor">Momento torçor (kN·cm)</label>
+                            <input id="TDA_momento_torcor" type="text" placeholder="Ex: 200">
+                        </div>
+                        <div class="form-group">
+                            <label for="TDA_comprimento">Comprimento da peça (cm)</label>
+                            <input id="TDA_comprimento" type="text" placeholder="Ex: 80">
+                        </div>
+                        <div class="form-group">
+                            <label for="TDA_modulo_elasticidade">Módulo de elasticidade (GPa)</label>
+                            <input id="TDA_modulo_elasticidade" type="text" placeholder="Ex: 210">
+                        </div>
+                        <div class="form-group">
+                            <label for="TDA_momento_polar_inercia">Momento polar de inércia (cm⁴)</label>
+                            <input id="TDA_momento_polar_inercia" type="text" placeholder="Ex: 220">
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calcular_deslocamento_angularT()">Calcular</button>
+
+                    <div class="result-block">
+                        <span class="result-label">Deslocamento angular:</span>
+                        <span id="TDA_deslocamento_angular" class="result-value"></span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Diâmetro mínimo da seção</h3>
+                    <p class="card-subtitle">A partir do momento torçor e da tensão máxima admissível de cisalhamento.</p>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="TDMS_momento_torcor">Momento torçor (kN·cm)</label>
+                            <input id="TDMS_momento_torcor" type="text" placeholder="Ex: 180">
+                        </div>
+                        <div class="form-group">
+                            <label for="TDMS_tensao_maxima_cisalhamento">
+                                Tensão máx. cisalhamento (kN/cm²)
+                            </label>
+                            <input id="TDMS_tensao_maxima_cisalhamento" type="text" placeholder="Ex: 2.5">
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calcular_diametro_minimo_secaoT()">Calcular</button>
+
+                    <div class="result-block">
+                        <span class="result-label">Diâmetro mínimo:</span>
+                        <span id="TDMS_diametro_minimo_secao" class="result-value"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script>
+    // Tabs
+    document.addEventListener('DOMContentLoaded', function () {
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabPanels = document.querySelectorAll('.tab-panel');
+
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetSelector = btn.getAttribute('data-tab-target');
+                const targetPanel = document.querySelector(targetSelector);
+                if (!targetPanel) return;
+
+                tabButtons.forEach(b => b.classList.remove('active'));
+                tabPanels.forEach(p => p.classList.remove('active'));
+
+                btn.classList.add('active');
+                targetPanel.classList.add('active');
+            });
+        });
+
+        // Tema (claro/escuro)
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const themeLabel = document.getElementById('theme-label');
+
+        function applyTheme(theme) {
+            document.body.setAttribute('data-theme', theme);
+            if (theme === 'light') {
+                themeIcon.textContent = '☀';
+                themeLabel.textContent = 'Tema claro';
+            } else {
+                themeIcon.textContent = '🌙';
+                themeLabel.textContent = 'Tema escuro';
+            }
+        }
+
+        function getPreferredTheme() {
+            const stored = localStorage.getItem('rm-theme');
+            if (stored === 'light' || stored === 'dark') return stored;
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+                return 'light';
+            }
+            return 'dark';
+        }
+
+        const initialTheme = getPreferredTheme();
+        applyTheme(initialTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const current = document.body.getAttribute('data-theme') || 'dark';
+            const next = current === 'dark' ? 'light' : 'dark';
+            applyTheme(next);
+            localStorage.setItem('rm-theme', next);
+        });
+    });
+</script>
 </body>
 </html>
