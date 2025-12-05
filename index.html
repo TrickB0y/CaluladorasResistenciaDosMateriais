@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script defer src="main.js"></script>
+</head>
+<body>
+    <div>
+        <h1>Calculos Relacionados A Tensão</h1>
+        <div>
+            <h2>Calculo da área da seção do cabo</h2>
+            <label for="SC_tensao_limite">Tensão limite</label>
+            <input id="SC_tensao_limite" type="text">
+            <label for="SC_carga">Carga</label>
+            <input id="SC_carga" type="text">
+            <br>
+            <button onclick="calcular_area_secao()">Calcular</button>
+            <br>
+            <p>Area:</p>
+            <p id="SC_area_secao_cabo">   </p>
+        </div>
+        <br>
+        <div>
+            <h2>Calculo do diâmetro do cabo</h2>
+            <label for="DC_area">Area</label>  
+            <input id="DC_area" type="text">
+            <br>
+            <button onclick="calcular_diametro_cabo()">Calcular</button>
+            <br>
+            <p>Diâmetro:</p>
+            <p id="DC_diametro_cabo">   </p>
+            
+        </div>
+        <br>
+        <div>
+            <h2>Calculo de tensão admitida</h2>
+            <label for="TA_tensao_limite">Tensão limite</label>
+            <input id="TA_tensao_limite" type="text">
+            <label for="TA_seguranca">Coeficiente de segurança</label>
+            <input id="TA_seguranca" type="text">
+            <br>
+            <button onclick="calcular_tensao_admitida()">Calcular</button>
+            <br>
+            <p>Tensão admitida:</p>
+            <p id="TA_tensao_admitida">   </p>
+        </div>
+        <br>
+        <div>
+            <h2>Dimensionamento completo da peça</h2>
+            <label for="DCP_coeficiente_major">Coeficiente para majorar força</label>
+            <input id="DCP_coeficiente_major" type="text">
+            <label for="DCP_carga">Carga</label>
+            <input id="DCP_carga" type="text">
+            <br>
+            <br>
+            <label for="DCP_tensao_limite">Tensão limite</label>
+            <input id="DCP_tensao_limite" type="text">
+            <label for="DCP_coeficiente_minor">Coeficiente para minorar a resistência</label>
+            <input id="DCP_coeficiente_minor" type="text">
+            <br>
+            <button onclick="calcular_dimensionamento_completo()">Calcular</button>
+            <br>
+            <p>Area resistente:</p>
+            <p id="DCP_area_resistente">   </p>
+        </div>
+    </div>
+    <br><br><br>
+    <div>
+        <h1>Calculos Relacionados a Deformação em Barras Causadas por Força Axial</h1>
+        <div>
+            <h2>Deformação de barra</h2>
+            <label for="DB_carga">Carga (kN)</label>
+            <input id="DB_carga" type="text">
+            <label for="DB_comprimento">Comprimento (cm)</label>
+            <input id="DB_comprimento" type="text">
+            <br>
+            <br>
+            <label for="DB_modulo">Modulo de deformação (Gpa)</label>
+            <input id="DB_modulo" type="text">
+            <label for="DB_area">Area da seção transversal (cm²)</label>
+            <input id="DB_area" type="text">
+            <br>
+            <button onclick="calcular_deformacao_barra()">Calcular</button>
+            <br>
+            <p>Deformação (cm):</p>
+            <p id="DB_deformacao">   </p>
+        </div>
+        <br>
+        <div>
+            <h2>Calculo da Area de uma Barra Cicular Vazada</h2>
+            <label for="CABC_diametro">Diametro (cm)</label>  
+            <input id="CABC_diametro" type="text">
+            <label for="CABC_espessura">Espessura (cm)</label>  
+            <input id="CABC_espessura" type="text">
+            <br>
+            <button onclick="calcular_area_barra_circular_vazada()">Calcular</button>
+            <br>
+            <p>Area:</p>
+            <p id="CABC_area">   </p>
+            
+        </div>
+    </div>
+    <br><br><br>
+    <div>
+        <h1>Calculos Relacionados a Características Geométricas de Perfis</h1>
+        <div>
+            <h2>Determinar as Caracteristicas Geometricas de um Poligono Ortogonal por Decomposição Retangular</h2>
+            <h3>Adicionar Retangulo</h3>
+            <div>
+                <label for="CGPO_tamanho_x">Tamanho horizontal (cm)</label>  
+                <input id="CGPO_tamanho_x" type="text">
+                <label for="CGPO_tamanho_y">Tamanho vertical (cm)</label>  
+                <input id="CGPO_tamanho_y" type="text">
+                <br><br>
+                <p>As coordenadas devem ser do vertice do canto inferior esquerdo (mais perto do ponto de origem):</p>
+                <p>Atenção! apenas cordenadas positivas</p>
+                <p>O retangulos não devem se sobrepor de nenhuma maneira</p>
+                <br>
+                <label for="CGPO_coordenada_x">Coordenada horizontal</label>  
+                <input id="CGPO_coordenada_x" type="text">
+                <label for="CGPO_coordenada_y">Coordenada vertical</label>  
+                <input id="CGPO_coordenada_y" type="text">
+                <br><br>
+                <button onclick="add_retangulo_PO_CG()">Adicionar Retangulo</button>
+                <button onclick="apagar_retangulos_PO_CG()">Reiniciar Retangulos</button>
+            </div>
+            <h3>Retangulos: </h3>
+            <div id="CGPO_retangulos_adicionados">
+                <br>
+
+            </div>
+            <br>
+            <button onclick="calcular_all_CG_PO()">Calcular Caracteristicas Geometricas</button>
+            <br>
+            <p id="CGPO_erro">   </p>
+            <br><br>
+            <h3>Caracteristicas Geometricas do Poligono</h3>
+            <p>Area:</p>
+            <p id="CGPO_area">   </p>
+            <br></br>
+            <p>Centro de gravidade:</p>
+            <p id="CGPO_centro_de_gravidade">   </p>
+            <br></br>
+            <p>Momento de inercia:</p>
+            <p id="CGPO_momento_de_inercia">   </p>
+            <br></br>
+            <p>Raio de giração:</p>
+            <p id="CGPO_raio_de_giracao">   </p>
+            <br></br>
+            <p>Momento resistente elástico:</p>
+            <p id="CGPO_momento_resistenteX">   </p>
+            <p id="CGPO_momento_resistenteY">   </p>
+        </div>
+        <br>
+        <div>
+            <h2>Determinar as Caracteristicas Geometricas de um circulo</h2>
+            <br>
+            <label for="CGC_diametro">Diametro (cm)</label>  
+            <input id="CGC_diametro" type="text">
+            <br><br>
+            <button onclick="calcular_CG_C()">Calcular Caracteristicas Geometricas</button>
+            <br><br>
+            <h3>Resultados</h3>
+            <p>Area:</p>
+            <p id="CGC_area">   </p>
+            <br></br>
+            <p>Centro de gravidade:</p>
+            <p id="CGC_centro_de_gravidade">   </p>
+            <br></br>
+            <p>Momento de inercia:</p>
+            <p id="CGC_momento_de_inercia">   </p>
+            <br><br>
+            <p>Momento polar de inercia:</p>
+            <p id="CGC_momento_polar_de_inercia">   </p>
+            <br></br>
+            <p>Raio de giração:</p>
+            <p id="CGC_raio_de_giracao">   </p>
+            <br></br>
+            <p>Momento resistente elástico:</p>
+            <p id="CGC_momento_resistente">   </p>
+            <br>
+        </div>
+        <br>
+        <div>
+            <h2>Determinar as Caracteristicas Geometricas de um Retangulo vazado</h2>
+            <br>
+            <label for="CGRV_tamanho_x">Tamanho horizontal (cm)</label>  
+            <input id="CGRV_tamanho_x" type="text">
+            <br><br>
+            <label for="CGRV_tamanho_y">Tamanho vertical (cm)</label>  
+            <input id="CGRV_tamanho_y" type="text">
+            <br><br>
+            <label for="CGRV_espessura">Espessura (cm)</label>  
+            <input id="CGRV_espessura" type="text">
+            <br><br>
+            <button onclick="calcular_CG_RV()">Calcular Caracteristicas Geometricas</button>
+            <br><br>
+            <h3>Resultados</h3>
+            <p>Area:</p>
+            <p id="CGRV_area">   </p>
+            <br></br>
+            <p>Centro de gravidade:</p>
+            <p id="CGRV_centro_de_gravidade">   </p>
+            <br></br>
+            <p>Momento de inercia:</p>
+            <p id="CGRV_momento_de_inercia">   </p>
+            <br></br>
+            <p>Raio de giração:</p>
+            <p id="CGRV_raio_de_giracao">   </p>
+            <br></br>
+            <p>Momento resistente elástico:</p>
+            <p id="CGRV_momento_resistenteX">   </p>
+            <p id="CGRV_momento_resistenteY">   </p>
+            <br>
+        </div>
+        <br>
+        <div>
+            <h2>Determinar as Caracteristicas Geometricas de um circulo vazado</h2>
+            <br>
+            <label for="CGCV_diametro">Diametro (cm)</label>  
+            <input id="CGCV_diametro" type="text">
+            <br><br>
+            <label for="CGCV_espessura">Espessura (cm)</label>  
+            <input id="CGCV_espessura" type="text">
+            <br><br>
+            <button onclick="calcular_CG_CV()">Calcular Caracteristicas Geometricas</button>
+            <br><br>
+            <h3>Resultados</h3>
+            <p>Area:</p>
+            <p id="CGCV_area">   </p>
+            <br></br>
+            <p>Centro de gravidade:</p>
+            <p id="CGCV_centro_de_gravidade">   </p>
+            <br></br>
+            <p>Momento de inercia:</p>
+            <p id="CGCV_momento_de_inercia">   </p>
+            <br><br>
+            <p>Momento polar de inercia:</p>
+            <p id="CGCV_momento_polar_de_inercia">   </p>
+            <br></br>
+            <p>Raio de giração:</p>
+            <p id="CGCV_raio_de_giracao">   </p>
+            <br></br>
+            <p>Momento resistente elástico:</p>
+            <p id="CGCV_momento_resistente">   </p>
+            <br>
+        </div>
+    </div>
+    <br><br><br>
+    <div>
+        <h1>Calculos Relacionados a Deformação por Flexão</h1>
+        <div>
+            <h2>Cálculo da deformação máxima de viga</h2>
+            <label for="DM_carga">Carga (kN/m)</label>
+            <input id="DM_carga" type="text">
+            <label for="DM_vao">Vão da viga (m)</label>
+            <input id="DM_vao" type="text">
+            <br>
+            <br>
+            <label for="DM_modulo_deformacao">Modulo de deformação (GPA)</label>
+            <input id="DM_modulo_deformacao" type="text">
+            <label for="DM_momento_inercia">Momento de inercia (cm^4)</label>
+            <input id="DM_momento_inercia" type="text">
+            <br>
+            <button onclick="calcular_deformacao_maxima_DFDM()">Calcular</button>
+            <br>
+            <p>Deformação maxima</p>
+            <p id="DM_deformacao_max">   </p>
+        </div>
+    </div>
+    <br><br><br>
+    <div>
+        <h1>Calculos Relacionados a Torção</h1>
+        <div>
+            <h2>Calculo de momento torçor</h2>
+            <label for="TMT_forca">Força (kN)</label>
+            <input id="TMT_forca" type="text">
+            <label for="TMT_raio">Raio da seção (cm)</label>
+            <input id="TMT_raio" type="text">
+            <br>
+            <button onclick="calcular_momento_torcorT()">Calcular</button>
+            <br>
+            <p>Momento Torçor</p>
+            <p id="TMT_momento_torcor">   </p>
+        </div>
+        <br><br>
+        <div>
+            <h2>Calculo de Tensão Máxima de Cisalhamento</h2>
+            <label for="TTMC_momento_torcor">Momento torçor (kNcm)</label>
+            <input id="TTMC_momento_torcor" type="text">
+            <label for="TTMC_raio">Raio da seção (cm)</label>
+            <input id="TTMC_raio" type="text">
+            <br>
+            <label for="TTMC_momento_polar_inercia">Momento polar de inércia (cm^4)</label>
+            <input id="TTMC_momento_polar_inercia" type="text">
+            <br>
+            <button onclick="calcular_tensao_maxima_cisalhamentoT()">Calcular</button>
+            <br>
+            <p>Tensão máxima de cisalhamento</p>
+            <p id="TTMC_tensao_maxima_cisalhamento">   </p>
+        </div>
+        <br><br>
+        <div>
+            <h2>Cálculo de Deslocamento angular</h2>
+            <label for="TDA_momento_torcor">Momento torçor (kNcm)</label>
+            <input id="TDA_momento_torcor" type="text">
+            <label for="TDA_comprimento">Comprimento da peça (cm)</label>
+            <input id="TDA_comprimento" type="text">
+            <br>
+            <label for="TDA_modulo_elasticidade">Módulo de elasticidade (GPA)</label>
+            <input id="TDA_modulo_elasticidade" type="text">
+            <label for="TDA_momento_polar_inercia">Momento polar de inércia (cm^4)</label>
+            <input id="TDA_momento_polar_inercia" type="text">
+            <br>
+            <button onclick="calcular_deslocamento_angularT()">Calcular</button>
+            <br>
+            <p>Deslocamento angular</p>
+            <p id="TDA_deslocamento_angular">   </p>
+        </div>
+        <br><br>
+        <div>
+            <h2>Calculo de Diâmetro Mínimo da Seção</h2>
+            <label for="TDMS_momento_torcor">Momento torçor (kNcm)</label>
+            <input id="TDMS_momento_torcor" type="text">
+            <label for="TDMS_tensao_maxima_cisalhamento">Tensão maxima de cisalhamento (kN/cm²)</label>
+            <input id="TDMS_tensao_maxima_cisalhamento" type="text">
+            <br>
+            <button onclick="calcular_diametro_minimo_secaoT()">Calcular</button>
+            <br>
+            <p>Diâmetro Mínimo da Seção</p>
+            <p id="TDMS_diametro_minimo_secao">   </p>
+        </div>
+    </div>
+</body>
+</html>
